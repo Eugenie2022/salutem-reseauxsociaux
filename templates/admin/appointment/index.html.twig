@@ -1,0 +1,44 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Appointment index{% endblock %}
+
+{% block body %}
+    <h1>Appointment index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>DateAt</th>
+                <th>Patient</th>
+                <th>Docteur</th>
+                <th>Spécialité</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for appointment in appointments %}
+            <tr class="{% if appointment.hasProblems %}table-danger{% endif %}">
+                <td>{{ appointment.dateAt ? appointment.dateAt|date('d/m/Y H:i') : '' }}</td>
+                <td>{{ appointment.user.fullName }}</td>
+                <td>
+                    {% if appointment.doctor %}
+                    {{ appointment.doctor.fullName }}
+                    {% else %}
+                    {% endif %}
+                </td>
+                <td>{{ appointment.speciality.name }}</td>
+                <td>
+                    <a href="{{ path('app_admin_appointment_show', {'id': appointment.id}) }}" class="btn btn-primary"><i class="fa fa-eye"></i> Afficher</a>
+                    <a href="{{ path('app_admin_appointment_edit', {'id': appointment.id}) }}" class="btn btn-warning"><i class="fa fa-edit"></i> Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_appointment_new') }}" class="btn btn-success"><i class="fa fa-plus"></i> Ajouter un rendez-vous</a>
+{% endblock %}

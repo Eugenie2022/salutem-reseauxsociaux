@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'form_div_layout.html.twig' %}
+
+{% block body %}
+    <section class="home-top">
+        <article class="container">
+            <h1>Salutem</h1>
+            <h2>Maison de santé</h2>
+            <a href="#appointment" class="btn btn-dark">Prendre rendez-vous</a>
+        </article>
+    </section>
+    <section class="home-boxes">
+        <div class="container">
+            <article>
+                <h3>Centre médicale</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, debitis delectus dolorem, est eveniet ex explicabo id iure iusto magni maiores nam non numquam odio officiis quaerat reiciendis repellat totam.</p>
+                <a href="#" class="btn btn-light">Lire la suite</a>
+            </article>
+            <article>
+                <h3>Horaires d'ouverture</h3>
+                <table class="opening-hours">
+                    {% for openingHour in openingHours %}
+                        <tr class="{{ today|date('N') == openingHour.weekNumber ? 'today' : '' }}">
+                            <td>{{ openingHour.weekDay }}</td>
+                            <td class="hours">
+                                {% if openingHour.openingTime is not null and openingHour.closingTime is not null %}
+                                    {{ openingHour.openingTime|date('G') }}h - {{ openingHour.closingTime|date('G') }}h
+                                {% else %}
+                                    Fermé
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </article>
+            <article>
+                <h3>Numéro d'urgence</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A adipisci assumenda aut delectus dolores illo laboriosam provident reiciendis tempore vel?</p>
+                <p>
+                    <a href="tel:0243785443" class="phone-number">0243785443</a>
+                </p>
+                <a href="#" class="btn btn-light">Lire la suite</a>
+            </article>
+        </div>
+    </section>
+
+    <section class="doctors">
+        <div class="container">
+            <article class="appointment-container">
+                <h3>Prendre rendez-vous</h3>
+                {% if app.user %}
+                {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    <button type="submit" class="btn btn-light">
+                        <i class="fa fa-check"></i>
+                        Envoyer
+                    </button>
+                {{ form_end(form) }}
+                    {% if appointmentSaved %}
+                    <p>Votre demande a bien été enregistré.</p>
+                    {% endif %}
+                {% else %}
+                    <a href="{{ path('login') }}" class="btn btn-light">Se connecter</a>
+                {% endif %}
+            </article>
+
+            {% for doctor in doctors %}
+                {% include 'doctor/_card.html.twig' with {'doctor' : doctor} only %}
+            {% endfor %}
+
+        </div>
+    </section>
+{% endblock %}

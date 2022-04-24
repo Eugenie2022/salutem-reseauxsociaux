@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos Etablissements{% endblock %}
+
+{% block body %}
+
+
+<section class="medicalArea">
+    <div class="container">
+
+        {% for medicalArea in medicalAreas %}
+            <ul>
+                <li><a href="{{ path("app_medical_area_show", {'id' : medicalArea.id}) }}">{{ medicalArea.name }}</a></li>
+            </ul>
+        {% endfor %}
+
+    </div>
+</section>
+
+{% endblock %}

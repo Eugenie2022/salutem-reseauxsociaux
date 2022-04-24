@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ doctor.fullName }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>{{ doctor.fullName }}</h1>
+        <img src="{{ asset('uploads/' ~ doctor.photo) }}" alt="{{ doctor.fullName }}">
+        <p>Spécialité : {{ doctor.speciality.name }}</p>
+        <p>{{ doctor.description }}</p>
+        <ul>
+            {% if doctor.phone %}
+            <li>Téléphone : {{ doctor.phone }}</li>
+            {% endif %}
+            {% if doctor.email %}
+            <li>Email : {{ doctor.email }}</li>
+            {% endif %}
+        </ul>
+        <p>Vous pouvez prendre rendez-vous dans ces lieux :</p>
+        <ul>
+            {% for area in doctor.medicalAreas %}
+                <li>
+                    {{ area.name }}
+                    <a href="{{ path("app_medical_area_show", {'id' : medicalArea.id}) }}" class="btn btn-light">{{ area.areaType.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
