@@ -12,25 +12,25 @@ class SocialNetworkFixtures extends Fixture
     {
         $facebook = new SocialNetwork();
         $facebook->setName('Facebook');
-        $facebook->setIcon('<i class="fa fa-facebook-square" aria-hidden="true"></i>');
+        $facebook->setIcon('fa-facebook-square');
         $facebook->setLink('https://www.facebook.com/');
         $manager->persist($facebook);
 
         $instagram = new SocialNetwork();
         $instagram->setName('Instagram');
-        $instagram->setIcon('<i class="fa fa-instagram" aria-hidden="true"></i>');
+        $instagram->setIcon('fa-instagram');
         $instagram->setLink('https://www.instagram.com/');
         $manager->persist($instagram);
 
         $linkedin = new SocialNetwork();
         $linkedin->setName('LinkedIn');
-        $linkedin->setIcon('<i class="fa fa-linkedin-square" aria-hidden="true"></i>');
+        $linkedin->setIcon('fa-linkedin-square');
         $linkedin->setLink('https://www.linkedin.com/');
         $manager->persist($linkedin);
 
         $twitter = new SocialNetwork();
         $twitter->setName('Twitter');
-        $twitter->setIcon('<i class="fa fa-twitter-square" aria-hidden="true"></i>');
+        $twitter->setIcon('fa-twitter-square');
         $twitter->setLink('https://twitter.com/');
         $manager->persist($twitter);
 

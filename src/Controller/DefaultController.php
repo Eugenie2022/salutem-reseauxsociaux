@@ -8,6 +8,7 @@ use App\Entity\OpeningHour;
 use App\Entity\SocialNetwork;
 use App\Form\AppointmentFrontType;
 use App\Repository\OpeningHourRepository;
+use App\Repository\SocialNetworkRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,7 +38,7 @@ class DefaultController extends AbstractController
             $doctrine->getManager()->flush();
             $appointmentSaved = true;
 
-        $socialNetwork = $doctrine->getRepository(SocialNetwork::class)->findAll();
+
         }
 
         return $this->renderForm('default/index.html.twig', [
@@ -46,7 +47,15 @@ class DefaultController extends AbstractController
             'today' => $today,
             'form' => $form,
             'appointmentSaved' => $appointmentSaved,
-            'socialNetwork' => $socialNetwork
+
+        ]);
+    }
+
+
+    public function header(SocialNetworkRepository $socialNetworkRepository): Response
+    {
+        return $this->render('default/_header.html.twig', [
+            'socialNetworks' => $socialNetworkRepository->findAll(),
         ]);
     }
 
